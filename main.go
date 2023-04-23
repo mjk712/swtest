@@ -17,11 +17,13 @@ func main() {
 	log.Fatal(http.ListenAndServe("localhost:8080", r))
 	PgDb, err := database.Connect(database.Postgres)
 	if err != nil {
+		fmt.Println("Bad DataBase")
 		fmt.Println(http.StatusBadRequest)
 		panic(err)
 	}
 	err = database.UpMigrations(PgDb)
 	if err != nil {
+		fmt.Println("Bad Migration")
 		fmt.Println(http.StatusBadRequest)
 		panic(err)
 	}

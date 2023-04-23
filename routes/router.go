@@ -8,7 +8,7 @@ import (
 
 var AirCompanyRoutes = func(router *mux.Router) {
 	router.HandleFunc("/aircompanyscontroller/airline", controllers.CreateAirCompany).Methods("POST")
-	router.HandleFunc("/aircompanyscontroller/airline/{code}", controllers.DeleteAirCompany).Methods("DELETE")
+	/*router.HandleFunc("/aircompanyscontroller/airline/{code}", controllers.DeleteAirCompany).Methods("DELETE")
 	router.HandleFunc("/aircompanyscontroller/provider", controllers.CreateProvider).Methods("POST")
 	router.HandleFunc("/aircompanyscontroller/provider/{id}", controllers.DeleteProvider).Methods("DELETE")
 	router.HandleFunc("/aircompanyscontroller/airline/{code}/providers/{id:.*}", controllers.RedactProvidersList).Methods("PUT")
@@ -20,5 +20,5 @@ var AirCompanyRoutes = func(router *mux.Router) {
 	router.HandleFunc("/aircompanyscontroller/account/{accId}/schema/{scId}", controllers.RedactAccountSchema).Methods("PUT")
 	router.HandleFunc("/aircompanyscontroller/account", controllers.DeteleAccount).Methods("DELETE")
 	router.HandleFunc("/aircompanyscontroller/account/{id}/airlines", controllers.GetAccountAirlines).Methods("GET")
-	router.HandleFunc("/aircompanyscontroller/provider/{id}/airlines", controllers.GetProviderAirlines).Methods("GET")
+	router.HandleFunc("/aircompanyscontroller/provider/{id}/airlines", controllers.GetProviderAirlines).Methods("GET")*/
 }

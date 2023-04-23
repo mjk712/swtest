@@ -1,3 +1,4 @@
+-- +goose Up
 create table if not exists Airline (
     id                  serial primary key,
     code              varchar not null,
