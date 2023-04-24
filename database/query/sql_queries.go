@@ -1,8 +1,8 @@
 package query
 
 var InsertAirline = `
-INSERT INTO Airline(id,code,name,ProvidersId)
-VALUES(:id,:code,:name,:ProviderId);
+INSERT INTO Airline(id,code,name)
+VALUES($1,$2,$3);
 `
 var DeleteAirline = `
 DELETE FROM Airline WHERE code = $1;

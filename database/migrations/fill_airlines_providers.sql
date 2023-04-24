@@ -1,0 +1,20 @@
+-- +goose Up
+INSERT INTO Airlines_Providers(id,AirlineId,ProviderId)
+VALUES(1,6,1),
+VALUES(2,7,1),
+VALUES(3,8,1),
+
+VALUES(4,1,2),
+VALUES(5,2,2),
+VALUES(6,6,2),
+VALUES(7,10,2),
+VALUES(8,7,2),
+VALUES(9,9,2),
+
+VALUES(10,1,3),
+VALUES(11,2,3),
+VALUES(12,3,3),
+VALUES(13,4,3),
+VALUES(14,5,3),
+VALUES(15,10,3),
+VALUES(16,11,3);
