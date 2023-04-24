@@ -5,5 +5,5 @@ create table if not exists Provider (
     name               varchar not null
 );
 
-
+-- +goose Down
 drop table if exists Provider;

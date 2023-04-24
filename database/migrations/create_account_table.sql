@@ -5,3 +5,6 @@ create table if not exists Account (
 
     foreign key (schemaId) references Schema(id)
 );
+
+-- +goose Down
+drop table if exists Account;

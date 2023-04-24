@@ -5,5 +5,5 @@ create table if not exists Schema (
 
 );
 
-
+-- +goose Down
 drop table if exists Schema;

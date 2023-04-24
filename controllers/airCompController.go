@@ -9,11 +9,33 @@ import (
 	"swTest/models"
 	"swTest/utils"
 
+	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
 )
 
+func GetSchema(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	schemaName := vars["name"]
+	sch := &models.Schema{}
+
+	db, err := database.Connect()
+	if err != nil {
+		fmt.Println("Connect Err")
+		fmt.Println(http.StatusBadRequest)
+	}
+	err = db.Get(sch, "SELECT * FROM Schema WHERE name=$1", schemaName)
+	if err != nil {
+		fmt.Println("Err Exec")
+		fmt.Println(http.StatusBadRequest)
+	}
+	a := "EBAT"
+	res, _ := json.Marshal(a)
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
 func CreateAirCompany(w http.ResponseWriter, r *http.Request) {
-	db, err := database.Connect(database.Postgres)
+	db, err := database.Connect()
 	if err != nil {
 		fmt.Println("Connect Err")
 		fmt.Println(http.StatusBadRequest)

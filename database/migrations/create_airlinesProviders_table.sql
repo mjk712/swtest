@@ -9,5 +9,5 @@ create table if not exists Airlines_Providers (
     foreign key (AirlineId) references Airline(id)
 );
 
-
+-- +goose Down
 drop table if exists Airlines_Providers;

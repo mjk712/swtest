@@ -1,32 +1,15 @@
 package database
 
 import (
-	"errors"
-	"fmt"
+	"log"
 
-	"github.com/jackc/pgx/v4"
-	"github.com/jackc/pgx/v4/stdlib"
 	"github.com/jmoiron/sqlx"
-	"github.com/pressly/goose"
 )
 
-func Connect(connectionString string) (*sqlx.DB, error) {
-	connConfig, err := pgx.ParseConfig(connectionString)
+func Connect() (*sqlx.DB, error) {
+	db, err := sqlx.Connect("postgres", "user=postgres password=1234 host=localhost port=5432 database=postgres sslmode=disable")
 	if err != nil {
-		return nil, fmt.Errorf("[pgx] can't parse connection: %v", err)
+		log.Fatalln(err)
 	}
-	if connConfig == nil {
-		return nil, errors.New("[pgx] connection config is nil")
-	}
-
-	db := sqlx.NewDb(stdlib.OpenDB(*connConfig), "pgx")
-	if err = db.Ping(); err != nil {
-		return nil, fmt.Errorf("[pgx] can't ping: %s", err)
-	}
-
 	return db, nil
-}
-
-func UpMigrations(db *sqlx.DB) error {
-	return goose.Up(db.DB, "./migrations")
 }

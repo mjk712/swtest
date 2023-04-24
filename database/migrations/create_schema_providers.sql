@@ -1,3 +1,4 @@
+-- +goose Up
 create table if not exists Schema_Providers (
     id                  serial primary key,
     SchemaId              int not null,
@@ -8,5 +9,5 @@ create table if not exists Schema_Providers (
     foreign key (SchemaId) references Schema(id)
 );
 
-
+-- +goose Down
 drop table if exists Schema_Providers;
