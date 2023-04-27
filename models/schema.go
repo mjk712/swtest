@@ -1,6 +1,6 @@
 package models
 
 type Schema struct {
-	id   uint   `json:"id"`
-	name string `json:"name"`
+	Id   uint   `json:"id"`
+	Name string `json:"name"`
 }

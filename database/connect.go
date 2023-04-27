@@ -1,15 +1,22 @@
 package database
 
 import (
-	"log"
-
 	"github.com/jmoiron/sqlx"
 )
 
-func Connect() (*sqlx.DB, error) {
-	db, err := sqlx.Connect("postgres", "user=greg password=1234 host=localhost port=5432 database=airlines sslmode=disable")
+var (
+	db *sqlx.DB
+)
+
+func Connect() error {
+	d, err := sqlx.Connect("postgres", Postgres)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
-	return db, nil
+	db = d
+	return nil
+}
+
+func GetDB() *sqlx.DB {
+	return db
 }

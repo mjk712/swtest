@@ -2,58 +2,71 @@ package query
 
 var InsertAirline = `
 INSERT INTO Airline(id,code,name)
-VALUES($1,$2,$3);
+VALUES(:id,:code,:name)
 `
 var DeleteAirline = `
-DELETE FROM Airline WHERE code = $1;
+DELETE FROM Airline WHERE code = $1
 `
 
 var AddProvider = `
-INSERT INTO Provider (providerId,name,airlines)
-VALUES(:id,:name,:airlines);
+INSERT INTO provider(id,providerid,name)
+VALUES(:id,:providerid,:name)
 `
 
 var DelProvider = `
-DELETE FROM Provider WHERE providerId = $1;
+DELETE FROM Provider WHERE providerid = $1
 `
 
 var RedactProvList = `
-UPDATE Airline SET ProviderId = $1
-WHERE code = $2;
+UPDATE Airline SET Providerid = $1
+WHERE code = $2
 `
 
 var InsertSchema = `
-INSERT INTO Schema (name,providers)
-VALUES(:name,:providers);
+INSERT INTO Schema (id,name)
+VALUES(:id,:name)
 `
 
 var SearchSchema = `
-SELECT * FROM Schema WHERE name = $1;
+SELECT * FROM schema WHERE name=$1
 `
 
 var RedctSchema = `
 UPDATE Schema SET(name,providers) = ($1,$2)
-WHERE id = $3;
+WHERE id = $3
 `
 
 var DelSchema = `
-DELETE FROM Schema WHERE id = $1 AND NOT IN
-(SELECT * FROM Account WHERE SchemaId = $1);
+DELETE FROM Schema WHERE id=$1 AND id NOT IN
+(SELECT schemaid FROM Account WHERE schemaid=$1)
 `
 
 var InsertAccount = `
-INSERT INTO Account(id,schemaId) 
-VALUES(:id ,:schemaId);
+INSERT INTO Account(id,schemaid) 
+VALUES(:id,:schemaid)
 `
 
 var RedAccSchema = `
-UPDATE Account SET SchemaId = $1 WHERE id = $2;
+UPDATE Account SET Schemaid = $1 WHERE id = $2
 `
 
 var DelAcc = `
-DELETE FROM Account WHERE id = $1;
+DELETE FROM Account WHERE id = $1
 `
 
-var ShowAccAir = `
-SELECT * 
+var ShowAirlinesFromProvider = `
+SELECT a.name AS airline_name, p.providerid AS provider_id
+FROM airline a
+LEFT JOIN airlines_providers ap ON ap.airlineid = a.id
+LEFT JOIN provider p ON p.id = ap.providerid
+WHERE p.providerid = $1
+
+`
+
+var ShowAccountAirlines = `
+SELECT a.name AS airline_name, p.providerid AS provider_id
+FROM airline a
+LEFT JOIN airlines_providers ap ON ap.airlineid = a.id
+LEFT JOIN provider p ON p.id = ap.providerid
+WHERE p.providerid (select providerid from schema_providers where schemaid IN (select schemaid from account where id=1))
 `

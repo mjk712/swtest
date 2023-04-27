@@ -1,7 +1,7 @@
 package models
 
 type Airline struct {
-	id   uint   `json:"id"`
-	code string `json:"code"`
-	name string `json:"name"`
+	Id   uint   `json:"id"`
+	Code string `json:"code"`
+	Name string `json:"name"`
 }

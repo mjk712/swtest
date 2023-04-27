@@ -1,7 +1,7 @@
 package models
 
 type SchemaProvider struct {
-	id         uint     `json:"id"`
-	schemaId   Schema   `json:"schemaId"`
-	providerId Provider `json:"providerId"`
+	Id         uint     `json:"id"`
+	SchemaId   Schema   `json:"schemaid"`
+	ProviderId Provider `json:"providerid"`
 }
