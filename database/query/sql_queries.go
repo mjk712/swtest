@@ -68,5 +68,7 @@ SELECT a.name AS airline_name, p.providerid AS provider_id
 FROM airline a
 LEFT JOIN airlines_providers ap ON ap.airlineid = a.id
 LEFT JOIN provider p ON p.id = ap.providerid
-WHERE p.providerid (select providerid from schema_providers where schemaid IN (select schemaid from account where id=1))
+WHERE p.id = (select providerid from schema_providers where schemaid IN (select schemaid from account where id=1))
 `
+
+//то что в where запущу отдельно запишу в структуру и через for буду первую часть запускать ^^
