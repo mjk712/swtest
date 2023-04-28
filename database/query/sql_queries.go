@@ -9,7 +9,7 @@ DELETE FROM Airline WHERE code = $1
 `
 
 var AddProvider = `
-INSERT INTO provider(providerid,name)GET
+INSERT INTO provider(providerid,name)
 VALUES(:providerid,:name)
 `
 
