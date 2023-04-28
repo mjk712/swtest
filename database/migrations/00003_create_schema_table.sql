@@ -3,7 +3,7 @@
 SELECT 'up SQL query';
 -- +goose StatementEnd
 create table if not exists Schema (
-    id                  integer primary key,
+    id                  BIGSERIAL primary key,
     name              varchar not null
 
 );

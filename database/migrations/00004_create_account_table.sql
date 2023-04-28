@@ -3,7 +3,7 @@
 SELECT 'up SQL query';
 -- +goose StatementEnd
 create table if not exists Account (
-    id                  integer primary key,
+    id                  BIGSERIAL primary key,
     schemaId            int not null,
 
     foreign key (schemaId) references Schema(id)

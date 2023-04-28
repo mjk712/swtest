@@ -3,7 +3,7 @@
 SELECT 'up SQL query';
 -- +goose StatementEnd
 create table if not exists Schema_Providers (
-    id                  integer primary key,
+    id                  BIGSERIAL primary key,
     SchemaId              int not null,
     ProviderId          int not null,
     

@@ -5,3 +5,7 @@ type Provider struct {
 	ProviderId string `json:"providerid"`
 	Name       string `json:"name"`
 }
+
+type ProvId struct {
+	Id uint `json:"id"`
+}

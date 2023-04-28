@@ -3,7 +3,7 @@
 SELECT 'up SQL query';
 -- +goose StatementEnd
 create table if not exists Airlines_Providers (
-    id                  integer primary key,
+    id                  BIGSERIAL primary key,
     AirlineId              int not null,
     ProviderId          int not null,
     

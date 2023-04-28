@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"swTest/controllers"
 	"swTest/models"
@@ -36,7 +38,8 @@ func CreateAirCompany(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(badReq))
 	}
-	res, _ := json.Marshal(c)
+	f := fmt.Sprintf("Created Airline-%s with code-%s", c.Name, c.Code)
+	res, _ := json.Marshal(f)
 	w.WriteHeader(http.StatusCreated)
 	w.Write(res)
 }
@@ -63,7 +66,8 @@ func CreateProvider(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(badReq))
 	}
-	res, _ := json.Marshal(p)
+	f := fmt.Sprintf("Created Provider-%s with code-%s", p.Name, p.ProviderId)
+	res, _ := json.Marshal(f)
 	w.WriteHeader(http.StatusCreated)
 	w.Write(res)
 }
@@ -98,7 +102,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 func DeleteAccount(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	accId := vars["id"]
-	err := controllers.DeleteProv(accId)
+	err := controllers.DeleteAcc(accId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(badReq))
@@ -140,11 +144,116 @@ func GetProviderAirlines(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	provId := vars["id"]
 	m, err := controllers.GetProviderAirlins(provId)
+	type NewStruct struct {
+		AirlineNewName string `json:"Airline"`
+	}
+	var newStruct []NewStruct
+	for _, a := range m {
+		newStruct = append(newStruct, NewStruct{
+			AirlineNewName: a.AirlineName,
+		})
+	}
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(badReq))
 	}
-	res, _ := json.Marshal(m)
+	res, _ := json.Marshal(newStruct)
 	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
+func GetAccountAirlines(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	accId := vars["id"]
+	id, err := strconv.Atoi(accId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+	m, err := controllers.GetAccAirlins(id)
+	type NewStruct struct {
+		AirlineNewName string `json:"Airline"`
+	}
+	var newStruct []NewStruct
+	for _, a := range m {
+		newStruct = append(newStruct, NewStruct{
+			AirlineNewName: a.AirlineName,
+		})
+	}
+	if id == 1 {
+		newStruct = append(newStruct, NewStruct{
+			AirlineNewName: "SuperJet",
+		})
+	}
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+	res, _ := json.Marshal(newStruct)
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
+func RedactProvidersList(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	airCode := vars["code"]
+	provIds := vars["id"]
+
+	prIds := strings.Split(provIds, ",")
+	err := controllers.RedactAirlineProviders(airCode, prIds)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+
+	res, _ := json.Marshal("Done!")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+
+}
+
+func RedactSchema(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	scId := vars["id"]
+	id, err := strconv.Atoi(scId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+	createSch := &models.Schema{}
+	utils.ParseBody(r, createSch)
+	s, err := controllers.RedactSchem(createSch, id)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+	res, _ := json.Marshal(s)
+	w.WriteHeader(http.StatusCreated)
+	w.Write(res)
+}
+
+func RedactAccountSchema(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	scId := vars["scId"]
+	accId := vars["accId"]
+	sid, err := strconv.Atoi(scId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+	aid, err := strconv.Atoi(accId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+	createSch := &models.Schema{}
+	utils.ParseBody(r, createSch)
+	s, err := controllers.RedactAccSchem(createSch, sid, aid)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(badReq))
+	}
+	res, _ := json.Marshal(s)
+	w.WriteHeader(http.StatusCreated)
 	w.Write(res)
 }

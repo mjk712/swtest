@@ -2,9 +2,9 @@
 -- +goose StatementBegin
 SELECT 'up SQL query';
 -- +goose StatementEnd
-INSERT INTO Schema(id,name)
-VALUES(1,'Основная'),
-(2,'Тестовая');
+INSERT INTO Schema(name)
+VALUES('Основная'),
+('Тестовая');
 -- +goose Down
 -- +goose StatementBegin
 SELECT 'down SQL query';

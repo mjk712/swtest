@@ -5,3 +5,7 @@ type Airline struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
+
+type AirlId struct {
+	Id uint `json:"id"`
+}
