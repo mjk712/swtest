@@ -24,4 +24,5 @@ DB - Postgresql
     12.Удаление аккаунта по Id;
     13.Получение списка авиакомпаний по id аккаунта,
     14.Получение списка авиакомпаний по id поставщика.
-
+Примеры операций:
+https://docs.google.com/presentation/d/1Ggawfw2iAW0krzaidzu9o6Ec9zzG6qI6vO1W0A8ZcLM/edit?usp=sharing
