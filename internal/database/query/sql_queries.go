@@ -17,12 +17,12 @@ var DelProvider = `
 DELETE FROM Provider WHERE providerid = $1
 `
 
-var InsProvList = `
+var InsertProvidersList = `
 INSERT INTO airlines_providers(airlineid,providerid)
 VALUES($1,$2)
 
 `
-var DelProvList = `
+var DeleteProviderList = `
 DELETE FROM airlines_providers 
 WHERE airlineid = (SELECT id FROM airline WHERE code = $1);
 `
@@ -54,7 +54,7 @@ LEFT JOIN provider p ON p.id = sp.providerid
 WHERE s.id = $1
 `
 
-var RedctSchema = `
+var UpdateSchema = `
 UPDATE Schema SET name = $1
 WHERE id = $2
 `

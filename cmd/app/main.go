@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
-	"swTest/routes"
+	"swTest/internal/transport/routes"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
